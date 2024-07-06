@@ -1,12 +1,10 @@
-import React, {useEffect} from "react";
-import { useState } from "react"
+import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {createCard, readDeck} from "../utils/api";
+import {readDeck} from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
 function AddCard({addNewCard}) {
     const [deck, setDeck] = useState({})
-    const [cards, setCards] = useState([])
     const params = useParams();
     const [front, setFront] = useState("")
     const [back, setBack] = useState("")
@@ -18,7 +16,6 @@ function AddCard({addNewCard}) {
             const deck = await readDeck(params.deckId, abortController.signal)
             console.log(deck)
             setDeck(deck)
-            setCards(deck.cards)
         }
         fetchDeck();
     }, [])

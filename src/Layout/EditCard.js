@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useState } from "react"
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {createCard, readCard, readDeck, updateCard} from "../utils/api";
+import {readCard, readDeck, updateCard} from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
 function EditCard() {

@@ -3,10 +3,10 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import Home from "./Home";
 import CreateDeck from "./CreateDeck";
-import { Routes, Route} from "react-router-dom"
+import {Route, Routes} from "react-router-dom"
 import Study from "./Study";
 import Deck from "./Deck";
-import {createCard, createDeck, deleteCard, deleteDeck, listDecks, updateDeck} from "../utils/api";
+import {createCard, deleteCard, deleteDeck, listDecks} from "../utils/api";
 import AddCard from "./AddCard";
 import EditCard from "./EditCard";
 import EditDeck from "./EditDeck";
