@@ -19,10 +19,18 @@ const Breadcrumbs = ({ deckName, cardId }) => {
             if (deckId === "new") {
                 links.push(<span key="new-deck">Create Deck</span>);
             } else {
+                const isSpecificPath = pathnames.length === 2 && pathnames[1] !== "new";
+
                 links.push(
-                    <Link key={`deck-${deckId}`} to={`/decks/${deckId}`}>
+                    isSpecificPath ? (
+                        <span key={`deck-${deckId}`}>
                         {deckName || `Deck ${deckId}`}
-                    </Link>
+                    </span>
+                    ) : (
+                        <Link key={`deck-${deckId}`} to={`/decks/${deckId}`}>
+                            {deckName || `Deck ${deckId}`}
+                        </Link>
+                    )
                 );
 
                 if (pathnames.includes("edit") && !pathnames.includes("cards")) {
