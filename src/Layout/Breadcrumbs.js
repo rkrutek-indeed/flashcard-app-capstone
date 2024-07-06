@@ -1,44 +1,53 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Breadcrumbs = ({ deck }) => {
+const Breadcrumbs = ({ deckName, cardId }) => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter((x) => x);
 
+    const breadcrumbLinks = () => {
+        const links = [
+            <Link key="home" to="/">
+                Home
+            </Link>,
+        ];
+
+        if (pathnames.includes("decks")) {
+            const deckIndex = pathnames.indexOf("decks");
+            const deckId = pathnames[deckIndex + 1];
+
+            links.push(
+                <Link key={`deck-${deckId}`} to={`/decks/${deckId}`}>
+                    {deckName || `Deck ${deckId}`}
+                </Link>
+            );
+
+            if (pathnames.includes("edit")) {
+                links.push(<span key="edit">Edit Deck</span>);
+            } else if (pathnames.includes("study")) {
+                links.push(<span key="study">Study</span>);
+            } else if (pathnames.includes("cards")) {
+                if (pathnames.includes("new")) {
+                    links.push(<span key="new-card">Add Card</span>);
+                } else if (cardId) {
+                    links.push(<span key={`edit-card-${cardId}`}>Edit Card {cardId}</span>);
+                }
+            }
+        } else if (pathnames.includes("new")) {
+            links.push(<span key="new-deck">Create Deck</span>);
+        }
+
+        return links;
+    };
+
     return (
         <div className="breadcrumbs">
-            <Link to="/">Home</Link>
-            {pathnames.map((path, index) => {
-                const isLast = index === pathnames.length - 1;
-                const isStudyPath = path === "study";
-                const isNewDeckPath = path === "new";
-                const isDeckId = !isNaN(path) && pathnames[index - 1] === "decks";
-
-                if (isDeckId || path === "decks") {
-                    return null; // Skip rendering "decks" and deck ID
-                }
-
-                return (
-                    <React.Fragment key={path}>
-                        <span> / </span>
-                        {isLast && isStudyPath ? (
-                            <span>
-                                {deck && (
-                                    <>
-                                        <Link to={`/decks/${deck.id}`}>{deck.name}</Link> / Study
-                                    </>
-                                )}
-                            </span>
-                        ) : isLast && isNewDeckPath ? (
-                            <span>Create Deck</span>
-                        ) : (
-                            <Link to={`/${pathnames.slice(0, index + 1).join("/")}`}>
-                                {decodeURIComponent(path)}
-                            </Link>
-                        )}
-                    </React.Fragment>
-                );
-            })}
+            {breadcrumbLinks().map((link, index) => (
+                <span key={index}>
+          {index > 0 && " / "}
+                    {link}
+        </span>
+            ))}
         </div>
     );
 };

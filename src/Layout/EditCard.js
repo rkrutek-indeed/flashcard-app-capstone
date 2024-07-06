@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { useState } from "react"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {createCard, readCard, readDeck, updateCard} from "../utils/api";
+import Breadcrumbs from "./Breadcrumbs";
 
 function EditCard() {
     const [deck, setDeck] = useState({})
@@ -47,6 +48,7 @@ function EditCard() {
 
     return (
         <div>
+            <Breadcrumbs cardId={params.cardId} deckName={deck.name}/>
             <h1>Edit Card</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="front">

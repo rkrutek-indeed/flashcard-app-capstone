@@ -31,7 +31,7 @@ function Deck({deleteDeck, deleteCard}) {
 
     return (
     <div>
-        <Breadcrumbs deck={deck}/>
+        <Breadcrumbs deckName={deck.name}/>
         <h1>{deck.name}</h1>
         <p>{deck.description}</p>
 

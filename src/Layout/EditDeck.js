@@ -3,6 +3,7 @@ import { useState } from "react"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {createCard, readDeck, updateCard, updateDeck} from "../utils/api";
 import deck from "./Deck";
+import Breadcrumbs from "./Breadcrumbs";
 
 function EditDeck({editDeck}) {
     const params = useParams();
@@ -34,6 +35,7 @@ function EditDeck({editDeck}) {
 
     return (
         <div>
+            <Breadcrumbs deckName={deck.name} />
             <h1>Edit Deck</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">

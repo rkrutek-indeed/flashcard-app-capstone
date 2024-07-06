@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { useState } from "react"
 import {Link, useParams} from "react-router-dom";
 import {createCard, readDeck} from "../utils/api";
+import Breadcrumbs from "./Breadcrumbs";
 
 function AddCard({addNewCard}) {
     const [deck, setDeck] = useState({})
@@ -37,6 +38,7 @@ function AddCard({addNewCard}) {
 
     return (
         <div>
+            <Breadcrumbs />
             <h1>{deck.name}</h1>
             <h2>Add Card</h2>
             <form onSubmit={handleSubmit}>
