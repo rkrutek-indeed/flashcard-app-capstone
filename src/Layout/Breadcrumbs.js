@@ -16,21 +16,25 @@ const Breadcrumbs = ({ deckName, cardId }) => {
             const deckIndex = pathnames.indexOf("decks");
             const deckId = pathnames[deckIndex + 1];
 
-            links.push(
-                <Link key={`deck-${deckId}`} to={`/decks/${deckId}`}>
-                    {deckName || `Deck ${deckId}`}
-                </Link>
-            );
+            if (deckId === "new") {
+                links.push(<span key="new-deck">Create Deck</span>);
+            } else {
+                links.push(
+                    <Link key={`deck-${deckId}`} to={`/decks/${deckId}`}>
+                        {deckName || `Deck ${deckId}`}
+                    </Link>
+                );
 
-            if (pathnames.includes("edit")) {
-                links.push(<span key="edit">Edit Deck</span>);
-            } else if (pathnames.includes("study")) {
-                links.push(<span key="study">Study</span>);
-            } else if (pathnames.includes("cards")) {
-                if (pathnames.includes("new")) {
-                    links.push(<span key="new-card">Add Card</span>);
-                } else if (cardId) {
-                    links.push(<span key={`edit-card-${cardId}`}>Edit Card {cardId}</span>);
+                if (pathnames.includes("edit")) {
+                    links.push(<span key="edit">Edit Deck</span>);
+                } else if (pathnames.includes("study")) {
+                    links.push(<span key="study">Study</span>);
+                } else if (pathnames.includes("cards")) {
+                    if (pathnames.includes("new")) {
+                        links.push(<span key="new-card">Add Card</span>);
+                    } else if (cardId) {
+                        links.push(<span key={`edit-card-${cardId}`}>Edit Card {cardId}</span>);
+                    }
                 }
             }
         } else if (pathnames.includes("new")) {

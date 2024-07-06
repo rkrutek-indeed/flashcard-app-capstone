@@ -16,7 +16,6 @@ function Study() {
     function NotEnoughCards({cards}) {
         return (
             <div>
-                <Breadcrumbs deckName={deck.name} />
                 <h2>Not enough cards.</h2>
                 <p>You need at least 3 cards to study. There are {cards.length} cards in this
                     deck.</p>
