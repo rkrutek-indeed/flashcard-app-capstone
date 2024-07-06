@@ -5,7 +5,7 @@ import {createCard, readDeck, updateCard, updateDeck} from "../utils/api";
 import deck from "./Deck";
 import Breadcrumbs from "./Breadcrumbs";
 
-function EditDeck({editDeck}) {
+function EditDeck() {
     const params = useParams();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -14,12 +14,15 @@ function EditDeck({editDeck}) {
     const handleDescriptionChange = (event) => setDescription(event.target.value);
     const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); // prevent default submit behavior
-        const updatedDeck = {...deck, description: description, name: name}
-        editDeck(updatedDeck)
-        setDeck(updatedDeck)
-        navigate(`/decks/${params.deckId}`)
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const updatedDeck = await updateDeck({
+            ...deck,
+            description,
+            name,
+        });
+        setDeck(updatedDeck);
+        navigate(`/decks/${params.deckId}`);
     };
 
     useEffect(() => {

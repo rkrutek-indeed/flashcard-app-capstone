@@ -50,16 +50,6 @@ function Layout() {
         }
     }
 
-    const editDeck = async (updatedDeck) => {
-        console.log(`Updating deck`);
-        const abortController = new AbortController();
-        try {
-            await updateDeck(updatedDeck, abortController.signal)
-        } catch (error) {
-            console.error("Error updating deck:", error);
-        }
-    }
-
     const removeCard = async (id) => {
         const confirmDelete = window.confirm("Delete this card?\nYou will not be able to recover it");
 
@@ -96,7 +86,7 @@ function Layout() {
               <Route path="/decks/:deckId/" element={<Deck deleteDeck={removeDeck} deleteCard={removeCard}  />} />
               <Route path="/decks/:deckId/cards/new" element={<AddCard addNewCard={addNewCard} />} />
               <Route path="/decks/:deckId/cards/:cardId/edit" element={<EditCard />} />
-              <Route path="/decks/:deckId/edit" element={<EditDeck editDeck={editDeck}/>} />
+              <Route path="/decks/:deckId/edit" element={<EditDeck/>} />
           </Routes>
       </div>
     </>
