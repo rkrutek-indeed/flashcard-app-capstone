@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
 
 function CreateDeck({addNewDeck}) {
@@ -9,6 +9,7 @@ function CreateDeck({addNewDeck}) {
     const [description, setDescription] = useState("");
     const handleNameChange = (event) => setName(event.target.value);
     const handleDescriptionChange = (event) => setDescription(event.target.value);
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault(); // prevent default submit behavior
@@ -17,6 +18,7 @@ function CreateDeck({addNewDeck}) {
         // clear entered data
         setName("");
         setDescription("");
+        navigate("/")
     };
 
     return (
