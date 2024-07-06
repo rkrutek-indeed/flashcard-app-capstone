@@ -46,6 +46,7 @@ function Deck({deleteDeck, deleteCard}) {
         </Link>
         <button  onClick={() => {deleteDeckHandler(deck.id)}}>Delete</button>
 
+        <h2>Cards</h2>
         <ul>
             {cards.map((card) => {
                 return (
