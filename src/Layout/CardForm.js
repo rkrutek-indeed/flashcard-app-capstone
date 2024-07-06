@@ -18,7 +18,7 @@ function CardForm({ isEditMode = false, addNewCard }) {
             setDeck(deck);
         };
         fetchDeck();
-    }, []);
+    }, [params.deckId]);
 
     useEffect(() => {
         const fetchCard = async () => {
@@ -31,7 +31,7 @@ function CardForm({ isEditMode = false, addNewCard }) {
             }
         };
         fetchCard();
-    }, [isEditMode]);
+    }, [isEditMode, params.cardId]);
 
     const saveCard = async () => {
         const abortController = new AbortController();

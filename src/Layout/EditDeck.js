@@ -32,7 +32,7 @@ function EditDeck() {
             setDeck(deck)
         }
         fetchDeck();
-    }, [])
+    }, [params.deckId])
 
     return (
         <div>

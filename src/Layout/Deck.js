@@ -17,7 +17,7 @@ function Deck({deleteDeck, deleteCard}) {
             setCards(deck.cards)
         }
         fetchDeck();
-    }, [])
+    }, [params.deckId])
 
     const deleteDeckHandler = ((deckId) => {
         deleteDeck(deckId)
