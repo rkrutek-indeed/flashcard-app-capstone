@@ -50,9 +50,11 @@ function EditCard() {
         <div>
             <Breadcrumbs cardId={params.cardId} deckName={deck.name}/>
             <h1>Edit Card</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="front">
-                    Front:
+            <form onSubmit={handleSubmit} className="mb-4">
+                <div className="mb-3">
+                    <label htmlFor="front" className="form-label">
+                        Front:
+                    </label>
                     <textarea
                         id="front"
                         name="front"
@@ -60,10 +62,14 @@ function EditCard() {
                         required={true}
                         onChange={handleFrontChange}
                         value={front}
+                        className="form-control"
+                        rows="3"
                     />
-                </label>
-                <label htmlFor="back">
-                    Back:
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="back" className="form-label">
+                        Back:
+                    </label>
                     <textarea
                         id="back"
                         name="back"
@@ -71,12 +77,18 @@ function EditCard() {
                         required={true}
                         onChange={handleBackChange}
                         value={back}
+                        className="form-control"
+                        rows="3"
                     />
-                </label>
-                <Link to={`/decks/${deck.id}`}>
-                    <button>Done</button>
-                </Link>
-                <button type="submit">Save</button>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <Link to={`/decks/${deck.id}`} className="btn btn-secondary">
+                        Done
+                    </Link>
+                    <button type="submit" className="btn btn-primary">
+                        Save
+                    </button>
+                </div>
             </form>
         </div>
     );

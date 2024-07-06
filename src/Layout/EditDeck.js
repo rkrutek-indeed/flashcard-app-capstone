@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 import { useState } from "react"
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {createCard, readDeck, updateCard, updateDeck} from "../utils/api";
-import deck from "./Deck";
+import {readDeck, updateDeck} from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
 function EditDeck() {
@@ -38,11 +37,13 @@ function EditDeck() {
 
     return (
         <div>
-            <Breadcrumbs deckName={deck.name} />
+            <Breadcrumbs deckName={deck.name}/>
             <h1>Edit Deck</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">
-                    Name:
+            <form onSubmit={handleSubmit} className="mb-4">
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                        Name:
+                    </label>
                     <input
                         id="name"
                         type="text"
@@ -51,10 +52,13 @@ function EditDeck() {
                         required={true}
                         onChange={handleNameChange}
                         value={name}
+                        className="form-control"
                     />
-                </label>
-                <label htmlFor="description">
-                    Description:
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                        Description:
+                    </label>
                     <textarea
                         id="description"
                         name="description"
@@ -62,12 +66,18 @@ function EditDeck() {
                         required={true}
                         onChange={handleDescriptionChange}
                         value={description}
+                        className="form-control"
+                        rows="3"
                     />
-                </label>
-                <Link to={`/decks/${params.deckId}`}>
-                    <button>Cancel</button>
-                </Link>
-                <button type="submit">Submit</button>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <Link to={`/decks/${params.deckId}`} className="btn btn-secondary">
+                        Cancel
+                    </Link>
+                    <button type="submit" className="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
             </form>
         </div>
     );

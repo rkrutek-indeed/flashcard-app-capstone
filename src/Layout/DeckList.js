@@ -10,17 +10,21 @@ function DeckList({ deck, deleteDeck }) {
     };
 
     return (
-        <div>
-            <h1>{deck.name}</h1>
-            <p>{deck.description}</p>
-            <p>{deck.cards ? deck.cards.length : 0} cards</p>
-            <Link to={`/decks/${deck.id}`}>
-                <button>View</button>
-            </Link>
-            <Link to={`/decks/${deck.id}/study`}>
-                <button>Study</button>
-            </Link>
-            <button onClick={() => deleteDeckHandler(deck.id)}>Delete</button>
+        <div className="card mb-3">
+            <div className="card-body">
+                <h5 className="card-title">{deck.name}</h5>
+                <p className="card-text">{deck.description}</p>
+                <p className="card-text">{deck.cards ? deck.cards.length : 0} cards</p>
+                <Link to={`/decks/${deck.id}`}>
+                    <button className="btn btn-primary btn-sm mr-2">View</button>
+                </Link>
+                <Link to={`/decks/${deck.id}/study`}>
+                    <button className="btn btn-secondary btn-sm mr-2">Study</button>
+                </Link>
+                <button className="btn btn-danger btn-sm"
+                        onClick={() => deleteDeckHandler(deck.id)}>Delete
+                </button>
+            </div>
         </div>
     );
 }

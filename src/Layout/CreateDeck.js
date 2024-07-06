@@ -26,40 +26,51 @@ function CreateDeck() {
     };
 
     return (
-      <div>
-          <Breadcrumbs />
-          <h1>Create Deck</h1>
-          <form onSubmit={handleSubmit}>
-              <label htmlFor="name">
-                  Name:
-                  <input
-                      id="name"
-                      type="text"
-                      name="name"
-                      placeholder="Deck name"
-                      required={true}
-                      onChange={handleNameChange}
-                      value={name}
-                  />
-              </label>
-              <label htmlFor="description">
-                  Description:
-                  <textarea
-                      id="description"
-                      name="description"
-                      placeholder="Brief description of the deck"
-                      required={true}
-                      onChange={handleDescriptionChange}
-                      value={description}
-                  />
-              </label>
-              <Link to={`/`}>
-                  <button>Cancel</button>
-              </Link>
-              <button type="submit">Submit</button>
-          </form>
-      </div>
-  );
+        <div>
+            <Breadcrumbs/>
+            <h1>Create Deck</h1>
+            <form onSubmit={handleSubmit} className="mb-4">
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                        Name:
+                    </label>
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        placeholder="Deck name"
+                        required={true}
+                        onChange={handleNameChange}
+                        value={name}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                        Description:
+                    </label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Brief description of the deck"
+                        required={true}
+                        onChange={handleDescriptionChange}
+                        value={description}
+                        className="form-control"
+                        rows="3"
+                    />
+                </div>
+                <div className="d-flex justify-content-between">
+                    <Link to={`/`} className="btn btn-secondary">
+                        Cancel
+                    </Link>
+                    <button type="submit" className="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
 }
 
 export default CreateDeck;
