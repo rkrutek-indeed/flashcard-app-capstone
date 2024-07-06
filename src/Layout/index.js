@@ -10,7 +10,6 @@ import {createCard, createDeck, deleteCard, deleteDeck, listDecks, updateDeck} f
 import AddCard from "./AddCard";
 import EditCard from "./EditCard";
 import EditDeck from "./EditDeck";
-import deck from "./Deck";
 
 function Layout() {
 

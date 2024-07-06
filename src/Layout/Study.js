@@ -70,7 +70,7 @@ function Study() {
     return (
         <div>
             <Breadcrumbs deckName={deck.name} />
-            <h1>{deck.name}</h1>
+            <h1>Study: {deck.name}</h1>
             {cards.length < 3 ? (
                     <NotEnoughCards cards={cards}/>
                 ) :
