@@ -36,6 +36,7 @@ function CreateDeck() {
                       id="name"
                       type="text"
                       name="name"
+                      placeholder="Deck name"
                       required={true}
                       onChange={handleNameChange}
                       value={name}
@@ -46,6 +47,7 @@ function CreateDeck() {
                   <textarea
                       id="description"
                       name="description"
+                      placeholder="Brief description of the deck"
                       required={true}
                       onChange={handleDescriptionChange}
                       value={description}

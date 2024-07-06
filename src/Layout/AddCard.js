@@ -48,6 +48,7 @@ function AddCard({addNewCard}) {
                         id="front"
                         name="front"
                         required={true}
+                        placeholder="Front side of card"
                         onChange={handleFrontChange}
                         value={front}
                     />
@@ -58,6 +59,7 @@ function AddCard({addNewCard}) {
                         id="back"
                         name="back"
                         required={true}
+                        placeholder="Back side of card"
                         onChange={handleBackChange}
                         value={back}
                     />

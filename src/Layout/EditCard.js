@@ -56,6 +56,8 @@ function EditCard() {
                     <textarea
                         id="front"
                         name="front"
+                        placeholder="Front side of card"
+                        required={true}
                         onChange={handleFrontChange}
                         value={front}
                     />
@@ -65,6 +67,8 @@ function EditCard() {
                     <textarea
                         id="back"
                         name="back"
+                        placeholder="Back side of card"
+                        required={true}
                         onChange={handleBackChange}
                         value={back}
                     />
