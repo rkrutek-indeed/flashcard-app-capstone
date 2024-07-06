@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react"
 import {Link} from "react-router-dom";
+import Breadcrumbs from "./Breadcrumbs";
 
 function CreateDeck({addNewDeck}) {
 
@@ -20,6 +21,7 @@ function CreateDeck({addNewDeck}) {
 
     return (
       <div>
+          <Breadcrumbs />
           <h1>Create Deck</h1>
           <form onSubmit={handleSubmit}>
               <label htmlFor="name">

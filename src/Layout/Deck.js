@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {readDeck} from "../utils/api";
+import Breadcrumbs from "./Breadcrumbs";
 
 function Deck({deleteDeck, deleteCard}) {
     const [deck, setDeck] = useState({})
@@ -30,6 +31,7 @@ function Deck({deleteDeck, deleteCard}) {
 
     return (
     <div>
+        <Breadcrumbs deck={deck}/>
         <h1>{deck.name}</h1>
         <p>{deck.description}</p>
 

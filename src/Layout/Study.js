@@ -13,9 +13,10 @@ function Study() {
     const navigate = useNavigate()
 
 
-    function NotEnoughCards({cards, addNewCard}) {
+    function NotEnoughCards({cards}) {
         return (
             <div>
+                <Breadcrumbs deck={deck} />
                 <h2>Not enough cards.</h2>
                 <p>You need at least 3 cards to study. There are {cards.length} cards in this
                     deck.</p>
@@ -69,7 +70,7 @@ function Study() {
 
     return (
         <div>
-            <Breadcrumbs />
+            <Breadcrumbs deck={deck} />
             <h1>{deck.name}</h1>
             {cards.length < 3 ? (
                     <NotEnoughCards cards={cards}/>
