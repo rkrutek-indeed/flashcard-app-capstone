@@ -15,12 +15,14 @@ function Study() {
 
     function NotEnoughCards({cards}) {
         return (
-            <div>
+            <div className="text-start">
                 <h2>Not enough cards.</h2>
-                <p>You need at least 3 cards to study. There are {cards.length} cards in this
-                    deck.</p>
+                <p>
+                    You need at least 3 cards to study. There are {cards.length} cards in
+                    this deck.
+                </p>
                 <Link to={`/decks/${deck.id}/cards/new`}>
-                    <button>Add Cards</button>
+                    <button className="btn-primary me-2">Add Cards</button>
                 </Link>
             </div>
         )
@@ -28,31 +30,40 @@ function Study() {
 
     function Cards({cards}) {
         return (
-            <div>
-                <h6>{`Card ${cardIndex + 1} of ${cards.length}`}</h6>
+            <div className="text-start">
+                <h6 className="mb-3">{`Card ${cardIndex + 1} of ${cards.length}`}</h6>
 
-                {flip === 0 ? <p>{cards[cardIndex].front}</p> : <p>{cards[cardIndex].back}</p>}
+                <div className="card mb-3">
+                    <div className="card-body">
+                    {flip === 0 ? <p className="card-text">{cards[cardIndex].front}</p> :
+                            <p className="card-text">{cards[cardIndex].back}</p>}
+                    </div>
+                </div>
 
-                <button onClick={() => {
-                    setFlip(1)
-                    setShowNextButton(true)
-                }}>flip</button>
-                {showNextButton
-                    &&
-                    <button onClick={() => {
-                        setFlip(0)
-                        setShowNextButton(false);
-                        setCardIndex(cardIndex + 1)
-                        if (cards.length - 1 === cardIndex) {
-                            const response = window.confirm("Restart cards?\nClick 'cancel' to return to home page.")
-                            if (response === true) {
-                                setCardIndex(0);
-                            } else {
-                                navigate("/")
+                <div className="d-flex justify-content-start">
+                    <button className="btn btn-secondary btn" onClick={() => {
+                        setFlip(1)
+                        setShowNextButton(true)
+                    }}>Flip
+                    </button>
+                    {showNextButton &&
+                        <button className="btn-primary me-2" onClick={() => {
+                            setFlip(0)
+                            setShowNextButton(false);
+                            setCardIndex(cardIndex + 1)
+                            if (cards.length - 1 === cardIndex) {
+                                const response = window.confirm("Restart cards?\nClick 'cancel' to return to home page.")
+                                if (response === true) {
+                                    setCardIndex(0);
+                                } else {
+                                    navigate("/")
+                                }
                             }
-                        }
-                    }}>next</button>}
+                        }}>Next</button>}
+                </div>
             </div>
+
+
         )
     }
 
@@ -69,7 +80,7 @@ function Study() {
 
     return (
         <div>
-            <Breadcrumbs deckName={deck.name} />
+            <Breadcrumbs deckName={deck.name}/>
             <h1>Study: {deck.name}</h1>
             {cards.length < 3 ? (
                     <NotEnoughCards cards={cards}/>
