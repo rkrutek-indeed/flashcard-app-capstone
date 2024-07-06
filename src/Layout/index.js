@@ -24,17 +24,6 @@ function Layout() {
         fetchDecks();
     }, [])
 
-    const addNewDeck = async (name, description) => {
-        console.log(`Creating deck`);
-        const abortController = new AbortController();
-        try {
-            const newDeck = await createDeck({name: name, description: description}, abortController.signal)
-            setDecks([...decks, newDeck])
-        } catch (error) {
-            console.error("Error creating deck:", error);
-        }
-    }
-
     const removeDeck = async (id) => {
         const confirmDelete = window.confirm("Delete this deck?\nYou will not be able to recover it");
 
@@ -80,7 +69,7 @@ function Layout() {
           <Routes>
               <Route path="/" element={<Home decks={decks} deleteDeck={removeDeck}/>}/>
               <Route path="/decks" element={<Home decks={decks} deleteDeck={removeDeck}/>} />
-              <Route path="/decks/new" element={<CreateDeck decks={decks} addNewDeck={addNewDeck}/>}/>
+              <Route path="/decks/new" element={<CreateDeck decks={decks}/>}/>
               <Route path="*" element={<NotFound/>} />
               <Route path="/decks/:deckId/study" element={<Study />} />
               <Route path="/decks/:deckId/" element={<Deck deleteDeck={removeDeck} deleteCard={removeCard}  />} />

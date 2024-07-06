@@ -2,8 +2,9 @@ import React from "react";
 import { useState } from "react"
 import {Link, useNavigate} from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
+import {createDeck} from "../utils/api";
 
-function CreateDeck({addNewDeck}) {
+function CreateDeck() {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -11,14 +12,17 @@ function CreateDeck({addNewDeck}) {
     const handleDescriptionChange = (event) => setDescription(event.target.value);
     const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault(); // prevent default submit behavior
-        addNewDeck(name, description)
-
-        // clear entered data
-        setName("");
-        setDescription("");
-        navigate("/")
+        const abortController = new AbortController();
+        try {
+            const newDeck = await createDeck({ name, description }, abortController.signal);
+            setName("");
+            setDescription("");
+            navigate(`/decks/${newDeck.id}`);
+        } catch (error) {
+            console.error("Error creating deck:", error);
+        }
     };
 
     return (
