@@ -25,15 +25,21 @@ const Breadcrumbs = ({ deckName, cardId }) => {
                     </Link>
                 );
 
-                if (pathnames.includes("edit")) {
+                if (pathnames.includes("edit") && !pathnames.includes("cards")) {
                     links.push(<span key="edit">Edit Deck</span>);
                 } else if (pathnames.includes("study")) {
                     links.push(<span key="study">Study</span>);
                 } else if (pathnames.includes("cards")) {
+                    const cardIndex = pathnames.indexOf("cards");
+                    const cardId = pathnames[cardIndex + 1];
+
                     if (pathnames.includes("new")) {
                         links.push(<span key="new-card">Add Card</span>);
                     } else if (cardId) {
-                        links.push(<span key={`edit-card-${cardId}`}>Edit Card {cardId}</span>);
+                        const editIndex = pathnames.indexOf("edit");
+                        if (editIndex !== -1) {
+                            links.push(<span key={`edit-card-${cardId}`}>Edit Card {cardId}</span>);
+                        }
                     }
                 }
             }

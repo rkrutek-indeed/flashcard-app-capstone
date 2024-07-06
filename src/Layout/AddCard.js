@@ -38,7 +38,7 @@ function AddCard({addNewCard}) {
 
     return (
         <div>
-            <Breadcrumbs />
+            <Breadcrumbs deckName={deck.name}/>
             <h1>{deck.name}</h1>
             <h2>Add Card</h2>
             <form onSubmit={handleSubmit}>
