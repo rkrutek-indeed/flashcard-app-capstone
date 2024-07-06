@@ -1,43 +1,67 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {readDeck, updateDeck} from "../utils/api";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { readDeck, updateDeck, createDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
-function EditDeck() {
+function DeckForm({ isEditMode = false }) {
     const params = useParams();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [deck, setDeck] = useState({});
     const handleNameChange = (event) => setName(event.target.value);
     const handleDescriptionChange = (event) => setDescription(event.target.value);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const updatedDeck = await updateDeck({
-            ...deck,
-            description,
-            name,
-        });
-        setDeck(updatedDeck);
-        navigate(`/decks/${params.deckId}`);
+        const abortController = new AbortController();
+
+        try {
+            if (isEditMode) {
+                const updatedDeck = await updateDeck(
+                    {
+                        ...deck,
+                        description,
+                        name,
+                    },
+                    abortController.signal
+                );
+                setDeck(updatedDeck);
+                navigate(`/decks/${params.deckId}`);
+            } else {
+                const newDeck = await createDeck(
+                    { name, description },
+                    abortController.signal
+                );
+                setName("");
+                setDescription("");
+                navigate(`/decks/${newDeck.id}`);
+            }
+        } catch (error) {
+            console.error(`Error ${isEditMode ? "updating" : "creating"} deck:`, error);
+        }
     };
 
     useEffect(() => {
         const fetchDeck = async () => {
-            const abortController = new AbortController();
-            const deck = await readDeck(params.deckId, abortController.signal)
-            setName(deck.name)
-            setDescription(deck.description)
-            setDeck(deck)
-        }
+            if (isEditMode) {
+                const abortController = new AbortController();
+                const deck = await readDeck(params.deckId, abortController.signal);
+                setName(deck.name);
+                setDescription(deck.description);
+                setDeck(deck);
+            }
+        };
         fetchDeck();
-    }, [params.deckId])
+    }, [isEditMode, params.deckId]);
+
+    const title = isEditMode ? "Edit Deck" : "Create Deck";
+    const cancelLink = isEditMode ? `/decks/${params.deckId}` : "/";
 
     return (
         <div>
-            <Breadcrumbs deckName={deck.name}/>
-            <h1>Edit Deck</h1>
+            <Breadcrumbs deckName={isEditMode ? deck.name : null} />
+            <h1>{title}</h1>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">
@@ -70,7 +94,7 @@ function EditDeck() {
                     />
                 </div>
                 <div className="d-flex justify-content-between">
-                    <Link to={`/decks/${params.deckId}`} className="btn btn-secondary">
+                    <Link to={cancelLink} className="btn btn-secondary">
                         Cancel
                     </Link>
                     <button type="submit" className="btn btn-primary">
@@ -82,4 +106,4 @@ function EditDeck() {
     );
 }
 
-export default EditDeck;
+export default DeckForm;

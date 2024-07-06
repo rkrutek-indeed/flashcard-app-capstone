@@ -2,13 +2,12 @@ import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Home from "./Home";
-import CreateDeck from "./CreateDeck";
 import {Route, Routes} from "react-router-dom"
 import Study from "./Study";
 import Deck from "./Deck";
 import {createCard, deleteCard, deleteDeck, listDecks} from "../utils/api";
-import EditDeck from "./EditDeck";
 import CardForm from "./CardForm";
+import DeckForm from "./DeckForm";
 
 function Layout() {
 
@@ -68,13 +67,13 @@ function Layout() {
           <Routes>
               <Route path="/" element={<Home decks={decks} deleteDeck={removeDeck}/>}/>
               <Route path="/decks" element={<Home decks={decks} deleteDeck={removeDeck}/>} />
-              <Route path="/decks/new" element={<CreateDeck decks={decks}/>}/>
+              <Route path="/decks/new" element={<DeckForm decks={decks}/>}/>
               <Route path="*" element={<NotFound/>} />
               <Route path="/decks/:deckId/study" element={<Study />} />
               <Route path="/decks/:deckId/" element={<Deck deleteDeck={removeDeck} deleteCard={removeCard}  />} />
               <Route path="/decks/:deckId/cards/new" element={<CardForm addNewCard={addNewCard} />} />
               <Route path="/decks/:deckId/cards/:cardId/edit" element={<CardForm isEditMode={true} />} />
-              <Route path="/decks/:deckId/edit" element={<EditDeck/>} />
+              <Route path="/decks/:deckId/edit" element={<DeckForm isEditMode={true}/>} />
           </Routes>
       </div>
     </>
