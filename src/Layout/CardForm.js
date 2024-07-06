@@ -1,46 +1,52 @@
-import React, {useEffect} from "react";
-import { useState } from "react"
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {readCard, readDeck, updateCard} from "../utils/api";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { readCard, readDeck, updateCard } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
-function EditCard() {
-    const [deck, setDeck] = useState({})
+function CardForm({ isEditMode = false, addNewCard }) {
+    const [deck, setDeck] = useState({});
     const params = useParams();
-    const [front, setFront] = useState("")
-    const [back, setBack] = useState("")
-    const [card, setCard] = useState({})
-    const navigate = useNavigate()
+    const [front, setFront] = useState("");
+    const [back, setBack] = useState("");
+    const [card, setCard] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDeck = async () => {
             const abortController = new AbortController();
-            const deck = await readDeck(params.deckId, abortController.signal)
-            setDeck(deck)
-        }
+            const deck = await readDeck(params.deckId, abortController.signal);
+            setDeck(deck);
+        };
         fetchDeck();
-    }, [])
+    }, []);
 
     useEffect(() => {
         const fetchCard = async () => {
-            const abortController = new AbortController();
-            const card = await readCard(params.cardId, abortController.signal)
-            setCard(card)
-            setFront(card.front)
-            setBack(card.back)
-        }
+            if (isEditMode) {
+                const abortController = new AbortController();
+                const card = await readCard(params.cardId, abortController.signal);
+                setCard(card);
+                setFront(card.front);
+                setBack(card.back);
+            }
+        };
         fetchCard();
-    }, [])
+    }, [isEditMode]);
 
-    const editCard = async () => {
+    const saveCard = async () => {
         const abortController = new AbortController();
-        await updateCard({...card, front: front, back: back}, abortController.signal)
-    }
+        if (isEditMode) {
+            await updateCard({ ...card, front: front, back: back }, abortController.signal);
+        } else {
+            // Add new card logic here
+            addNewCard(params.deckId, { front: front, back: back });
+        }
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault(); // prevent default submit behavior
-        editCard()
-        navigate(`/decks/${deck.id}`)
+        event.preventDefault();
+        saveCard();
+        navigate(`/decks/${deck.id}`);
     };
 
     const handleFrontChange = (event) => setFront(event.target.value);
@@ -48,8 +54,8 @@ function EditCard() {
 
     return (
         <div>
-            <Breadcrumbs cardId={params.cardId} deckName={deck.name}/>
-            <h1>Edit Card</h1>
+            <Breadcrumbs cardId={params.cardId} deckName={deck.name} />
+            <h1>{isEditMode ? "Edit Card" : "Add Card"}</h1>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="mb-3">
                     <label htmlFor="front" className="form-label">
@@ -94,4 +100,4 @@ function EditCard() {
     );
 }
 
-export default EditCard;
+export default CardForm;

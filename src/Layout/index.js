@@ -7,9 +7,8 @@ import {Route, Routes} from "react-router-dom"
 import Study from "./Study";
 import Deck from "./Deck";
 import {createCard, deleteCard, deleteDeck, listDecks} from "../utils/api";
-import AddCard from "./AddCard";
-import EditCard from "./EditCard";
 import EditDeck from "./EditDeck";
+import CardForm from "./CardForm";
 
 function Layout() {
 
@@ -73,8 +72,8 @@ function Layout() {
               <Route path="*" element={<NotFound/>} />
               <Route path="/decks/:deckId/study" element={<Study />} />
               <Route path="/decks/:deckId/" element={<Deck deleteDeck={removeDeck} deleteCard={removeCard}  />} />
-              <Route path="/decks/:deckId/cards/new" element={<AddCard addNewCard={addNewCard} />} />
-              <Route path="/decks/:deckId/cards/:cardId/edit" element={<EditCard />} />
+              <Route path="/decks/:deckId/cards/new" element={<CardForm addNewCard={addNewCard} />} />
+              <Route path="/decks/:deckId/cards/:cardId/edit" element={<CardForm isEditMode={true} />} />
               <Route path="/decks/:deckId/edit" element={<EditDeck/>} />
           </Routes>
       </div>
